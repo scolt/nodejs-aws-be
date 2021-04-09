@@ -1,11 +1,7 @@
 import { storage } from '../storage';
-import { prepareResponse } from '../utils/response';
+import { prepareResponse, withCatchError } from '../utils/response';
 
-export const getProductsList = async () => {
-  try {
-    const data = await storage.getAll('products') || [];
-    return prepareResponse(200, data);
-  } catch (e) {
-    return prepareResponse(500);
-  }
-};
+export const getProductsList = withCatchError(async (event) => {
+  const data = await storage.getAll('products') || [];
+  return prepareResponse(event, 200, data);
+});

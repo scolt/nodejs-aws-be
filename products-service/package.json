@@ -4,6 +4,7 @@
   "description": "Product Service for AWS",
   "author": "",
   "scripts": {
+    "deploy": "sls deploy",
     "test": "jest"
   },
   "license": "ISC",
