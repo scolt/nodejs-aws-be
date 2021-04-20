@@ -8,7 +8,7 @@ export const getDomainByEvent = (event) => {
     .pop();
 
   return possibleMatching && possibleMatching[0];
-}
+};
 
 export const prepareResponse = (event, code, data) => {
   return {
@@ -18,13 +18,14 @@ export const prepareResponse = (event, code, data) => {
     },
     statusCode: code,
     body: typeof data === 'object' ? JSON.stringify(data) : data,
-  }
-}
+  };
+};
 
 export const withCatchError = (fn) => async (event) => {
   try {
     return await fn(event);
   } catch (e) {
-    return prepareResponse(event, 500)
+    console.log('withCatchError handle the error', e.toString());
+    return prepareResponse(event, 500);
   }
-}
+};

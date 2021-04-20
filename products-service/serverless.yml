@@ -9,9 +9,17 @@ provider:
   region: eu-west-1
 
 plugins:
-  - serverless-plugin-webpack
+  - serverless-bundle
 
 functions:
+  post-products:
+    handler: src/functions/products.createProduct
+    events:
+      - http:
+          path: products
+          method: post
+          cors: true
+
   get-products:
     handler: src/functions/products.getProductsList
     events:
@@ -36,3 +44,7 @@ custom:
     title: 'My API'
     description: 'This is my API'
     models: { }
+  bundle:
+    ignorePackages:
+      - pg-native
+
