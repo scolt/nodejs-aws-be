@@ -1,0 +1,75 @@
+openapi: 3.0.0
+info:
+  description: AWS Products API for the mentoring programm
+  version: 1.0.0-oas3
+  title: AWS Products API
+  contact:
+    email: viktar_parashchanka@epam.com
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+
+paths:
+  /products:
+    get:
+      summary: 'Get all products, you can open'
+      responses:
+        '200':
+          description: search results matching criteria
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProductItem'
+        '500':
+          description: server error
+  '/products/{id}':
+    parameters:
+      - in: path
+        required: true
+        name: id
+        description: The product ID.
+        schema:
+          type: string
+    get:
+      summary: Get one product by provided ID
+      responses:
+        '200':
+          description: One element matching the ID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductItem'
+        '404':
+          description: product is not found
+        '500':
+          description: server error
+servers:
+  - url: 'https://4pmxwjtxxa.execute-api.eu-west-1.amazonaws.com/dev'
+components:
+  schemas:
+    ProductItem:
+      type: object
+      required:
+        - id
+        - name
+        - image
+        - description
+        - price
+      properties:
+        id:
+          type: string
+          example: 1
+        name:
+          type: string
+          example: Majesty
+        image:
+          type: string
+          example: 'https://www.specialtyproduce.com/sppics/641.png'
+        description:
+          type: string
+          example: Medium skin with an earthy flavor and vibrant color
+        price:
+          type: integer
+          example: 194
