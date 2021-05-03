@@ -1,0 +1,21 @@
+{
+  "name": "products-service",
+  "version": "0.0.1",
+  "description": "Product Service for AWS",
+  "author": "",
+  "scripts": {
+    "deploy": "sls deploy",
+    "test": "serverless-bundle test"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "aws-sdk-mock": "^5.1.0",
+    "serverless-bundle": "^1.5.1"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.898.0",
+    "csv-parser": "^3.0.0",
+    "sequelize": "^6.6.2",
+    "yup": "0.32.9"
+  }
+}
