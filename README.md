@@ -23,6 +23,7 @@ Task `5.1` and `5.2` are implemented.
 * [DONE] Task 2
 * [DONE] Task 3
 * [DONE] Task 4
-* [IN REVIEW] Task 5
+* [DONE] Task 5
+* [IN REVIEW] Task 6
 
 

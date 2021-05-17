@@ -11,6 +11,7 @@ const options = {
   database: process.env.PG_DATABASE,
   password: process.env.PG_PASSWORD,
   port: process.env.PG_PORT,
+  logging: false,
 };
 
 export const getFlatStockOptions = (Stock) => ({
