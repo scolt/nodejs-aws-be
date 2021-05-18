@@ -22,7 +22,7 @@ Task goal is to create service to be able to save products which were provided i
    - `RUSNSSubscription` send messages with type RU
    - `BYSNSSubscription` send messages with type BY
 
-**Estimated points:** 8
+**Estimated points:** 6
 
 ## Progress
 * [DONE] Task 1
