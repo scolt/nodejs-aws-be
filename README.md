@@ -2,19 +2,25 @@
 API for NodeJS AWS Mentoring Program
 
 ## Description
-Task `5.1` and `5.2` are implemented.
-   + [/import](https://j8euk8i90h.execute-api.eu-west-1.amazonaws.com/dev/import) [400 Bad request]
-   + [/import](https://j8euk8i90h.execute-api.eu-west-1.amazonaws.com/dev/import?name=example.csv) [200 OK]
+Task goal is to create service to be able to save products which were provided in csv file in database.
 
 ## Criteria
-1. Done. File serverless.yml contains configuration for importProductsFile function
-2. Done. The importProductsFile lambda function returns a correct response which can be used to upload a file into the S3 bucket
-3. Done. Frontend application is integrated with importProductsFile lambda. [Potatoes Shop Home](https://d3f72tv2wri3cv.cloudfront.net/)
-4-5. Done. The importFileParser lambda function is implemented and serverless.yml contains configuration for the lambda
+1. Done. File serverless.yml contains configuration for catalogBatchProcess function. 
+   `product-service/serverless.yml/functions/catalog-batch`
+2. Done. File serverless.yml contains policies to allow lambda catalogBatchProcess function to interact with SNS and SQS.
+   - `product-service/serverless.yml/iamRoleStatements` for SNS
+   - `import-service/serverless.yml/iamRoleStatements` for SQS
+3. Done. File serverless.yml contains configuration for SQS CatalogItemsQueue.
+   `import-service/serverless.yml/Resources/CatalogItemsQueue`
+4. Done. File serverless.yml contains configuration for SNS Topic CreateProductTopic and email subscription
+   - `import-service/serverless.yml/Resources/CreateProductTopic` 
+   - `import-service/serverless.yml/Resources/BYSNSSubscription` 
+   - `import-service/serverless.yml/Resources/RUSNSSubscription` 
    
-- +1 async/await is used in lambda functions
-- +1  importProductsFile lambda is covered by unit tests
-- +1 At the end of the stream the lambda function should move the file from the uploaded folder into the parsed folder (move the file means that file should be copied into parsed folder, and then deleted from uploaded folder)
+- +1 catalogBatchProcess lambda is covered by unit tests.
+- +1 set a Filter Policy for SNS createProductTopic in serverless.yml. Filtration by `type` field in csv has been added.
+   - `RUSNSSubscription` send messages with type RU
+   - `BYSNSSubscription` send messages with type BY
 
 **Estimated points:** 8
 

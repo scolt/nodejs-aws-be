@@ -10,7 +10,7 @@ provider:
 
   environment:
     SQS_URL:
-      Ref: SQSQueue
+      Ref: CatalogItemsQueue
 
   iamRoleStatements:
     - Effect: "Allow"
@@ -33,7 +33,7 @@ provider:
         - "sqs:*"
       Resource:
         Fn::GetAtt:
-          - SQSQueue
+          - CatalogItemsQueue
           - Arn
 
 plugins:
@@ -64,11 +64,11 @@ functions:
 
 resources:
   Resources:
-    SQSQueue:
+    CatalogItemsQueue:
       Type: AWS::SQS::Queue
       Properties:
         QueueName: potatoes-queue
-    SNSTopic:
+    CreateProductTopic:
       Type: AWS::SNS::Topic
       Properties:
         TopicName: potatoes-sns
@@ -81,7 +81,7 @@ resources:
         Endpoint: viktar_parashchanka@epam.com
         Protocol: email
         TopicArn:
-          Ref: SNSTopic
+          Ref: CreateProductTopic
     RUSNSSubscription:
       Type: AWS::SNS::Subscription
       Properties:
@@ -91,19 +91,19 @@ resources:
         Endpoint: gxvint@gmail.com
         Protocol: email
         TopicArn:
-          Ref: SNSTopic
+          Ref: CreateProductTopic
 
   Outputs:
     SQSPotatoes:
       Export:
         Name: SQSPotatoesARN
       Value:
-        Fn::GetAtt: SQSQueue.Arn
+        Fn::GetAtt: CatalogItemsQueue.Arn
     SNSPotatoes:
       Export:
         Name: SNSPotatoesTopicARN
       Value:
-        Ref: SNSTopic
+        Ref: CreateProductTopic
 
 custom:
   documentation:
