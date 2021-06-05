@@ -8,6 +8,10 @@ provider:
   stage: dev
   region: eu-west-1
 
+  environment:
+    SQS_URL:
+      Ref: CatalogItemsQueue
+
   iamRoleStatements:
     - Effect: "Allow"
       Action:
@@ -24,6 +28,13 @@ provider:
         - "s3:*"
       Resource:
         - "arn:aws:s3:::potatoes-uploads/parsed/*"
+    - Effect: "Allow"
+      Action:
+        - "sqs:*"
+      Resource:
+        Fn::GetAtt:
+          - CatalogItemsQueue
+          - Arn
 
 plugins:
   - serverless-bundle
@@ -50,6 +61,49 @@ functions:
           rules:
             - prefix: uploads/
           existing: true
+
+resources:
+  Resources:
+    CatalogItemsQueue:
+      Type: AWS::SQS::Queue
+      Properties:
+        QueueName: potatoes-queue
+    CreateProductTopic:
+      Type: AWS::SNS::Topic
+      Properties:
+        TopicName: potatoes-sns
+    BYSNSSubscription:
+      Type: AWS::SNS::Subscription
+      Properties:
+        FilterPolicy:
+          type:
+            - by
+        Endpoint: viktar_parashchanka@epam.com
+        Protocol: email
+        TopicArn:
+          Ref: CreateProductTopic
+    RUSNSSubscription:
+      Type: AWS::SNS::Subscription
+      Properties:
+        FilterPolicy:
+          type:
+            - ru
+        Endpoint: gxvint@gmail.com
+        Protocol: email
+        TopicArn:
+          Ref: CreateProductTopic
+
+  Outputs:
+    SQSPotatoes:
+      Export:
+        Name: SQSPotatoesARN
+      Value:
+        Fn::GetAtt: CatalogItemsQueue.Arn
+    SNSPotatoes:
+      Export:
+        Name: SNSPotatoesTopicARN
+      Value:
+        Ref: CreateProductTopic
 
 custom:
   documentation:

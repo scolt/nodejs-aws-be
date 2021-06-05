@@ -8,10 +8,33 @@ provider:
   stage: dev
   region: eu-west-1
 
+  environment:
+    SNS_ARN:
+      Fn::ImportValue: SNSPotatoesTopicARN
+
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "sns:*"
+      Resource:
+        Fn::ImportValue: SNSPotatoesTopicARN
+
 plugins:
   - serverless-bundle
 
 functions:
+  catalog-batch:
+    handler: src/functions/catalog.catalogBatchProcess
+    environment:
+      SNS_ARN:
+        Fn::ImportValue: SNSPotatoesTopicARN
+    events:
+      - sqs:
+          maximumBatchingWindow: 10
+          batchSize: 5
+          arn:
+            Fn::ImportValue: SQSPotatoesARN
+
   post-products:
     handler: src/functions/products.createProduct
     events:
@@ -26,6 +49,7 @@ functions:
       - http:
           path: products
           method: get
+          cors: true
 
   get-product:
     handler: src/functions/product.getProductById
@@ -33,6 +57,7 @@ functions:
       - http:
           path: products/{id}
           method: get
+          cors: true
           request:
             parameters:
               paths:

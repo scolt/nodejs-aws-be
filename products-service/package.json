@@ -9,9 +9,11 @@
   },
   "license": "ISC",
   "devDependencies": {
+    "aws-sdk-mock": "^5.1.0",
     "serverless-bundle": "^1.5.1"
   },
   "dependencies": {
+    "aws-sdk": "2.908.0",
     "pg": "^8.6.0",
     "pg-hstore": "^2.3.3",
     "sequelize": "^6.6.2",
