@@ -13,7 +13,7 @@ Create a new service, called authorization-service, with its own serverless.yml 
 
 +1 - Done. Client application should display alerts for the responses in 401 and 403 HTTP statuses.
 
-Frontend PR: https://github.com/scolt/nodejs-aws-fe/pull/5
+Frontend: [PR](https://github.com/scolt/nodejs-aws-fe/pull/5) and [UI](https://d198yl0e39blzs.cloudfront.net/)
 
 **Estimated points:** 6
 
