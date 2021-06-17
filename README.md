@@ -2,25 +2,18 @@
 API for NodeJS AWS Mentoring Program
 
 ## Description
-Task goal is to create service to be able to save products which were provided in csv file in database.
+Create a new service, called authorization-service, with its own serverless.yml file at the same level as product and import services.
 
 ## Criteria
-1. Done. File serverless.yml contains configuration for catalogBatchProcess function. 
-   `product-service/serverless.yml/functions/catalog-batch`
-2. Done. File serverless.yml contains policies to allow lambda catalogBatchProcess function to interact with SNS and SQS.
-   - `product-service/serverless.yml/iamRoleStatements` for SNS
-   - `import-service/serverless.yml/iamRoleStatements` for SQS
-3. Done. File serverless.yml contains configuration for SQS CatalogItemsQueue.
-   `import-service/serverless.yml/Resources/CatalogItemsQueue`
-4. Done. File serverless.yml contains configuration for SNS Topic CreateProductTopic and email subscription
-   - `import-service/serverless.yml/Resources/CreateProductTopic` 
-   - `import-service/serverless.yml/Resources/BYSNSSubscription` 
-   - `import-service/serverless.yml/Resources/RUSNSSubscription` 
-   
-- +1 catalogBatchProcess lambda is covered by unit tests.
-- +1 set a Filter Policy for SNS createProductTopic in serverless.yml. Filtration by `type` field in csv has been added.
-   - `RUSNSSubscription` send messages with type RU
-   - `BYSNSSubscription` send messages with type BY
+**1.** Done. authorization-service with basicAuthorizer has been added
+
+**3.** Done. import-service has authorizer. Request to the importProductsFile lambda work only with 200, 401 and 403 based on credentials.
+
+**5.** Done. client send token from local storage to the server (localstorage key is 'authorization_token')
+
++1 - Done. Client application should display alerts for the responses in 401 and 403 HTTP statuses.
+
+Frontend: [PR](https://github.com/scolt/nodejs-aws-fe/pull/5) and [UI](https://d198yl0e39blzs.cloudfront.net/)
 
 **Estimated points:** 6
 
@@ -30,6 +23,7 @@ Task goal is to create service to be able to save products which were provided i
 * [DONE] Task 3
 * [DONE] Task 4
 * [DONE] Task 5
-* [IN REVIEW] Task 6
+* [DONE] Task 6
+* [IN REVIEW] Task 7
 
 
